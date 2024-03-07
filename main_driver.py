@@ -1,11 +1,4 @@
-import json
-import pathlib
-
-import cpubenchmark_scraper as cpu
-import czc_laptop_scraper as czc
-
-PATH = pathlib.Path(__file__).parent
-LAPTOPS_JSON = PATH / "laptops.json"
+import file_io as f
 
 
 def __print_menu() -> None:
@@ -17,7 +10,7 @@ def __print_menu() -> None:
 
 
 def __main() -> None:
-    print("CZC Laptop Chooser v-1.1")
+    print("CZC Laptop Chooser v0.0")
     while True:
         __print_menu()
         match input(">>> "):
@@ -25,17 +18,16 @@ def __main() -> None:
                 return
 
             case "1":
-                dictlist = czc.laptop_links_to_dicts(czc.get_all_laptop_links())
-                with open("laptops.json", "w", encoding="utf-8") as file:
-                    json.dump(dictlist, file, ensure_ascii=False, indent=4)
+                f.download_laptop_info_to_json()
 
             case "2":
-                if not LAPTOPS_JSON.is_file():
-                    print(f"Soubor '{LAPTOPS_JSON}' neexistuje. Začněte krokem 1.")
-                    continue
-                with open("data.json", "r", encoding="utf-8") as file:
-                    data = json.load(file)
-                cpu.get_all_cpu_scores(data)
+                f.add_cpu_scores_to_json()
+
+            case "3":
+                f.json_to_excel()
+
+            case _:
+                print("Neznámý příkaz")
 
 
 if __name__ == "__main__":

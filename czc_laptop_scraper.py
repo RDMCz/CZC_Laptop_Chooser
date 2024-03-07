@@ -54,7 +54,7 @@ def laptop_links_to_dicts(links: list[str], print_progress: bool = True) -> list
             parameter_value = span.find_next("b").text if span else "-"
             laptop_dict[parameter_name] = parameter_value
         laptop_dict["CPU"] = "-"
-        laptop_dict["heureka"] = "-"
+        laptop_dict["heureka"] = f"https://www.heureka.cz/?h%5Bfraze%5D={laptop_dict['Kód výrobce:']}"
         dicts.append(laptop_dict)
         if print_progress:
             print(end="*")
