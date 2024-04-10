@@ -1,5 +1,6 @@
 __pycache__
 .idea
 laptops.json
-laptops.xlsx
-.~lock.laptops.xlsx#
+*.xlsx
+*.xlsx#
+config.txt

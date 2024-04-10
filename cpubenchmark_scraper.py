@@ -1,13 +1,13 @@
 import requests
 from bs4 import BeautifulSoup
 
-__link = "https://www.cpubenchmark.net/cpu_list.php"
+__LINK = "https://www.cpubenchmark.net/cpu_list.php"
 
 
 def add_cpu_scores(laptops: list[dict[str, str]], print_progress: bool = True) -> None:
     """Přidá ke všem notebookům v `laptops` informace o jejich CPU benchmark score"""
     cache_dict = {}  # CPU score cache, aby se pro stejný CPU nehledalo vícekrát
-    page = requests.get(__link)
+    page = requests.get(__LINK)
     soup = BeautifulSoup(page.text, "html.parser")
     for laptop in laptops:
         cpu_name = laptop["Model procesoru:"].split("(")[0]
@@ -20,4 +20,4 @@ def add_cpu_scores(laptops: list[dict[str, str]], print_progress: bool = True) -
             cache_dict[cpu_name] = score
         laptop["CPU"] = score
         if print_progress:
-            print(end="*")
+            print(end="*", flush=True)
